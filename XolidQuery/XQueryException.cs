@@ -21,7 +21,7 @@ namespace Dapper
             _message += "{\n";
             _message += "Configuration = configuration;\n\n";
             _message += "// Set mapper xml file path\n";
-            _message += "XolidQuery.SetMapPath(hostingEnvironment.ContentRootPath + \"/Maps\");\n";
+            _message += "XolidQuery.SetMapPath(Path.Combine(hostingEnvironment.ContentRootPath, \"Maps\"));\n";
             _message += "}\n";
             _message += "====================================================================================\n";
         }
@@ -35,11 +35,19 @@ namespace Dapper
         }
     }
 
+    public class QueryNotFoundXQueryException : XQueryException
+    {
+        public QueryNotFoundXQueryException(string queryId)
+        {
+            _message = string.Format("queryId : {0}", queryId);
+        }
+    }
+
     public class InvalidQueryIdXQueryException : XQueryException
     {
-        public InvalidQueryIdXQueryException(string queryId)
+        public InvalidQueryIdXQueryException(string queryInfo)
         {
-            _message = string.Format("queryId is must to be <FileName>.<QueryId> (ex: User.getOne). Input queryId : {0}", queryId);
+            _message = string.Format("queryInfo is must to be <FileName>.<QueryId> (ex: User.getOne). Input queryInfo : {0}", queryInfo);
         }
     }
 

@@ -4,6 +4,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "XolidQuery", "XolidQuery\Xo
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "XolidQueryExample", "Example\XolidQueryExample.csproj", "{AF610E31-E220-426B-BF08-28C8BC890307}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "XolidQueryTest", "XolidQueryTest\XolidQueryTest.csproj", "{807403A5-6DC2-4B92-BBA2-AA23C593FD33}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -18,5 +20,9 @@ Global
 		{AF610E31-E220-426B-BF08-28C8BC890307}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{AF610E31-E220-426B-BF08-28C8BC890307}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{AF610E31-E220-426B-BF08-28C8BC890307}.Release|Any CPU.Build.0 = Release|Any CPU
+		{807403A5-6DC2-4B92-BBA2-AA23C593FD33}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{807403A5-6DC2-4B92-BBA2-AA23C593FD33}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{807403A5-6DC2-4B92-BBA2-AA23C593FD33}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{807403A5-6DC2-4B92-BBA2-AA23C593FD33}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

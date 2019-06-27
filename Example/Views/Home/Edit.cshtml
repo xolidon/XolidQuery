@@ -1,0 +1,38 @@
+﻿@model User
+@{
+    ViewData["Title"] = "User Edit";
+}
+<div class="text-center">
+    <h1 class="display-4">@ViewData["Title"]</h1>
+    
+    <form action="/Home/Update" method="post">
+        <table>
+            <tr>
+                <th>id</th>
+                <td>
+                    @Model.id
+                    <input type="hidden" name="id" value="@Model.id" />
+                </td>
+            </tr>
+            <tr>
+                <th>name</th>
+                <td><input type="text" name="name" value="@Model.name" /></td>
+            </tr>
+            <tr>
+                <th>email</th>
+                <td><input type="text" name="email" value="@Model.email" /></td>
+            </tr>
+            <tr>
+                <th>phone</th>
+                <td><input type="text" name="phone" value="@Model.phone" /></td>
+            </tr>
+            <tr>
+                <th>age</th>
+                <td><input type="text" name="age" value="@Model.age" /></td>
+            </tr>
+        </table>
+        <input type="submit" />
+    </form>
+</div>
+
+

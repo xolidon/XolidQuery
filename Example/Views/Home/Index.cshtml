@@ -1,8 +1,44 @@
-﻿@{
-    ViewData["Title"] = "Home Page";
+﻿@model IEnumerable<User>
+@{
+    ViewData["Title"] = "User List";
+    var user = (User)ViewData["user"];
+    
 }
 
 <div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+    <h1 class="display-4">@ViewData["Title"]</h1>
+    
+    <form method="get" action="/Home">
+        name : <input type="text" name="name" value="@user.name" />
+        email : <input type="text" name="email" value="@user.email" /><br />
+        phone : <input type="text" name="phone" value="@user.phone" />
+        age : <input type="text" name="age" value="@user.age" /><br />
+        <input type="submit" />
+    </form>
+    
+    <table>
+        <tr>
+            <th>@Html.DisplayNameFor(model => model.id)</th>
+            <th>@Html.DisplayNameFor(model => model.name)</th>
+            <th>@Html.DisplayNameFor(model => model.email)</th>
+            <th>@Html.DisplayNameFor(model => model.phone)</th>
+            <th>@Html.DisplayNameFor(model => model.age)</th>
+            <th>actions</th>
+        </tr>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.id</td>
+                <td><a href="/Home/Details/@item.id">@item.name</a></td>
+                <td>@item.email</td>
+                <td>@item.phone</td>
+                <td>@item.age</td>
+                <td>
+                    <a href="Home/Edit/@item.id">Edit</a> |
+                    <a href="/Home/Details/@item.id">Details</a> |
+                    <a href="/Home/Delete/@item.id">Delete</a>
+                </td>
+            </tr>
+        }
+    </table>
 </div>

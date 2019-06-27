@@ -1,0 +1,30 @@
+﻿@model User
+@{
+    ViewData["Title"] = "User Details";
+}
+<div class="text-center">
+    <h1 class="display-4">@ViewData["Title"]</h1>
+    
+    <table>
+        <tr>
+            <th>id</th>
+            <td>@Model.id</td>
+        </tr>
+        <tr>
+            <th>name</th>
+            <td>@Model.name</td>
+        </tr>
+        <tr>
+            <th>email</th>
+            <td>@Model.email</td>
+        </tr>
+        <tr>
+            <th>phone</th>
+            <td>@Model.phone</td>
+        </tr>
+        <tr>
+            <th>age</th>
+            <td>@Model.age</td>
+        </tr>
+    </table>
+</div>

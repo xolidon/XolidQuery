@@ -16,27 +16,35 @@ namespace Dapper
         private static string _sqlMapPath = null;
         private static Dictionary<string, string> _documents;
 
-        /**
-         * 
-         */
+        /// <summary>
+        /// Set directory path, XML Query Mapper files located.
+        /// </summary>
+        /// <param name="mapPath"></param>
         public static void SetMapPath(string mapPath)
         {
             _sqlMapPath = mapPath;
         }
         
-        private static QueryInfo GetQueryInfo(string queryId)
+        /// <summary>
+        /// Get xml file name and query id from queryInfo
+        /// queryInfo = <XML File Name>.<queryId>
+        /// </summary>
+        /// <param name="queryInfo"></param>
+        /// <returns></returns>
+        /// <exception cref="InvalidQueryIdXQueryException"></exception>
+        private static QueryInfo GetQueryInfo(string queryInfo)
         {
-            if (!Regex.IsMatch(queryId, "^[a-zA-Z0-9]*[.][a-zA-Z0-9]*$"))
+            if (!Regex.IsMatch(queryInfo, "^[a-zA-Z0-9]*[.][a-zA-Z0-9]*$"))
             {
-                throw new InvalidQueryIdXQueryException(queryId);
+                throw new InvalidQueryIdXQueryException(queryInfo);
             }
 
-            string[] queryInfo = queryId.Split(".");
+            string[] info = queryInfo.Split(".");
 
             return new QueryInfo()
             {
-                FileName = queryInfo[0] + ".xml",
-                Id = queryInfo[1]
+                FileName = info[0] + ".xml",
+                Id = info[1]
             };
         }
         
@@ -86,23 +94,28 @@ namespace Dapper
 
             if (param != null && param.GetType().GetProperty(property) != null)
             {
-                value = param.GetType().GetProperty(property).GetValue(param, null).ToString();
+                var val = param.GetType().GetProperty(property).GetValue(param, null);
+                if (val != null) value = val.ToString();
             }
 
             return value;
         }
 
-        public static string GetQuery(string queryId, object param = null)
+        public static string GetQuery(string queryInfo, object param = null)
         {
-            var queryInfo = GetQueryInfo(queryId);
-            Document doc = GetDocument(queryInfo.FileName);
+            var info = GetQueryInfo(queryInfo);
+            Document doc = GetDocument(info.FileName);
 
-            return GetQuery(doc, queryInfo.Id, param);
+            return GetQuery(doc, info.Id, param);
         }
         
         private static string GetQuery(Document doc, string queryId, object param = null)
         {
             Element element = doc.Select("#" + queryId).First;
+            if (element == null)
+            {
+                throw new QueryNotFoundXQueryException(queryId);
+            }
 
             Tag(doc, element, param);
 
@@ -171,7 +184,7 @@ namespace Dapper
             return result;
         }
 
-        public static void Tag(Document doc, Element element, object param)
+        private static void Tag(Document doc, Element element, object param)
         {
             Elements tags = element.Select("> *");
             foreach (Element tag in tags)
@@ -189,6 +202,9 @@ namespace Dapper
                         break;
                     case "include":
                         IncludeTag(doc, tag, param);
+                        break;
+                    case "where":
+                        WhereTag(doc, tag, param);
                         break;
                     default:
                         throw new UnsupportedTagXQueryException(tag.Tag.Name);
@@ -273,6 +289,25 @@ namespace Dapper
             string query = GetQuery(doc, refId, param);
 
             element.Text(query);
+        }
+
+        private static void WhereTag(Document doc, Element element, object param)
+        {
+            Tag(doc, element, param);
+
+            string whereQuery = element.Text();
+
+            // Remove first 'AND'
+            if (whereQuery.ToLower().StartsWith("and"))
+            {
+                whereQuery = " WHERE " + whereQuery.Substring(3, whereQuery.Length - 3);
+            }
+            else if(!string.IsNullOrEmpty(whereQuery))
+            {
+                whereQuery = " WHERE " + whereQuery;
+            }
+
+            element.Text(whereQuery);
         }
     }
 }

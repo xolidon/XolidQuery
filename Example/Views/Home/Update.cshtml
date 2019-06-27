@@ -1,0 +1,20 @@
+﻿@{
+    ViewData["Title"] = "User Update";
+    var rows = (int) ViewData["rows"];
+}
+@if (rows > 0)
+{
+    <script>
+        alert('Update Completed!!');
+        location.href = '/Home';
+    </script>
+}
+else
+{
+    <script>
+        alert('Error!!');
+        location.href = '/Home';
+    </script>
+}
+
+

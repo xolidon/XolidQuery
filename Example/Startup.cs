@@ -11,6 +11,7 @@ using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using XolidQueryExample.Repositories;
 
 namespace XolidQueryExample
 {
@@ -21,7 +22,7 @@ namespace XolidQueryExample
             Configuration = configuration;
             
             // Set xml query mapper file path
-            XolidQuery.SetMapPath(Path.Combine(hostingEnvironment.WebRootPath, "Maps"));
+            XolidQuery.SetMapPath(Path.Combine(hostingEnvironment.ContentRootPath, "Maps"));
         }
 
         public IConfiguration Configuration { get; }
@@ -36,8 +37,10 @@ namespace XolidQueryExample
                 options.MinimumSameSitePolicy = SameSiteMode.None;
             });
 
-
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
+
+            // Add repository services
+            services.AddTransient<IUserRepository, UserRepository>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

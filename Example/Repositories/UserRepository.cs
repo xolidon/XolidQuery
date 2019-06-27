@@ -39,7 +39,7 @@ namespace XolidQueryExample.Repositories
 
             using (var conn = Connection)
             {
-                user = (User) conn.XQuery<User>("User.getOne", new
+                user = conn.XQuerySingle<User>("User.getOne", new
                 {
                     id = id
                 });
@@ -53,7 +53,7 @@ namespace XolidQueryExample.Repositories
             int ret = 0;
             using (var conn = Connection)
             {
-               ret = conn.Execute("User.insert", user);
+               ret = conn.XExecute("User.insert", user);
             }
 
             return ret;
@@ -61,12 +61,27 @@ namespace XolidQueryExample.Repositories
 
         public int UpdateUser(User user)
         {
-            throw new System.NotImplementedException();
+            int ret = 0;
+            using (var conn = Connection)
+            {
+                ret = conn.XExecute("User.update", user);
+            }
+
+            return ret;
         }
 
         public int DeleteUser(int id)
         {
-            throw new System.NotImplementedException();
+            int ret = 0;
+            using (var conn = Connection)
+            {
+                ret = conn.XExecute("User.delete", new
+                {
+                    id = id
+                });
+            }
+
+            return ret;
         }
     }
 }
