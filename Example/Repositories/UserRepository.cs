@@ -28,6 +28,8 @@ namespace XolidQueryExample.Repositories
             using (var conn = Connection)
             {
                 users = (List<User>) conn.XQuery<User>("User.findAll", user);
+
+                conn.Query<User>("SELECT id, email, name, age, phone, reg_date AS regDate FROM user WHERE name LIKE CONCAT('%', @name, '%')", new {name = "Smith"});
             }
 
             return users;
