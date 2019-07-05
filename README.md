@@ -2,7 +2,7 @@
 Dapper XML Query Mapper Plugin! Likes iBatis(MyBatis)
 
 
-
+- 1.0.3 Updated : Bugs fix. and property names are ignore case.
 - 1.0.2 Updated : isNull, isNullOrEmpty tags added.
 
 
