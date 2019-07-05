@@ -3,6 +3,10 @@ Dapper XML Query Mapper Plugin! Likes iBatis(MyBatis)
 
 
 
+- 1.0.2 Updated : isNull, isNullOrEmpty tags added.
+
+
+
 ## Usage
 
 #### using only Dapper
@@ -75,7 +79,7 @@ using (var conn = Connection)
 ## Supported Tag List (Likes MyBatis)
 
 - select, insert, update, delete
-- isNotNull
+- isNotNull, isNull `1.0.2`, isNullOrEmpty `1.0.2`
 - if
 - choose, when, otherwise
 - include

@@ -194,6 +194,12 @@ namespace Dapper
                     case "isnotnull":
                         IsNotNullTag(doc, tag, param);
                         break;
+                    case "isnull":
+                        IsNullTag(doc, tag, param);
+                        break;
+                    case "isnullorempty":
+                        IsNullOrEmptyTag(doc, tag, param);
+                        break;
                     case "if":
                         IfTag(doc, tag, param);
                         break;
@@ -219,6 +225,38 @@ namespace Dapper
             string value = GetParamValue(param, property);
 
             if (value == null)
+            {
+                element.Remove();
+            }
+            else
+            {
+                Tag(doc, element, param);
+            }
+        }
+        
+        private static void IsNullTag(Document doc, Element element, object param)
+        {
+            string property = element.Attr("property");
+
+            string value = GetParamValue(param, property);
+
+            if (value != null)
+            {
+                element.Remove();
+            }
+            else
+            {
+                Tag(doc, element, param);
+            }
+        }
+        
+        private static void IsNullOrEmptyTag(Document doc, Element element, object param)
+        {
+            string property = element.Attr("property");
+
+            string value = GetParamValue(param, property);
+
+            if (!string.IsNullOrEmpty(value))
             {
                 element.Remove();
             }

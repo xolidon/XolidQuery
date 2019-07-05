@@ -10,8 +10,10 @@
         <RepositoryType>git</RepositoryType>
         <PackageTags>Dapper XML Query MyBatis iBatis</PackageTags>
         <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
-        <PackageLicenseUrl>https://github.com/xolidon/XolidQuery/blob/master/LICENSE</PackageLicenseUrl>
-        <PackageVersion>1.0.1</PackageVersion>
+        <PackageLicenseUrl>https://github.com/xolidon/XolidQuery/blob/master/XolidQuery/LICENSE</PackageLicenseUrl>
+        <PackageVersion>1.0.2</PackageVersion>
+        <SignAssembly>true</SignAssembly>
+        <PublicSign>false</PublicSign>
     </PropertyGroup>
 
     <ItemGroup>
