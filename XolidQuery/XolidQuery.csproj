@@ -11,7 +11,7 @@
         <PackageTags>Dapper XML Query MyBatis iBatis</PackageTags>
         <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
         <PackageLicenseUrl>https://github.com/xolidon/XolidQuery/blob/master/XolidQuery/LICENSE</PackageLicenseUrl>
-        <PackageVersion>1.0.2</PackageVersion>
+        <PackageVersion>1.0.3</PackageVersion>
         <SignAssembly>true</SignAssembly>
         <PublicSign>false</PublicSign>
     </PropertyGroup>

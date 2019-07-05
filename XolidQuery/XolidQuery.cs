@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
 using System.IO;
+using System.Reflection;
 using System.Text.RegularExpressions;
 
 using NSoup;
@@ -88,14 +89,26 @@ namespace Dapper
             return doc;
         }
 
-        private static string GetParamValue(object param, string property)
+        /// <summary>
+        /// Get parameter value from input object
+        /// </summary>
+        /// <param name="param"></param>
+        /// <param name="propertyName"></param>
+        /// <returns></returns>
+        private static string GetParamValue(object param, string propertyName)
         {
             string value = null;
 
-            if (param != null && param.GetType().GetProperty(property) != null)
+            if (param != null)
             {
-                var val = param.GetType().GetProperty(property).GetValue(param, null);
-                if (val != null) value = val.ToString();
+                // IgnoreCase
+                var property = param.GetType().GetProperty(propertyName,
+                    BindingFlags.IgnoreCase | BindingFlags.Public | BindingFlags.Instance);
+                if (property != null)
+                {
+                    var val = property.GetValue(param, null);
+                    if (val != null) value = val.ToString();
+                }
             }
 
             return value;
@@ -136,8 +149,11 @@ namespace Dapper
 
             bValue = bValue.Replace("'", "").Replace("\"", "");
 
-            
-            //if (aValue == null) value = "null";
+
+            if (aValue == null)
+            {
+                return "null".Equals(bValue.ToLower());
+            }
                 
             Regex isNumber = new Regex(@"^\d+$");
 
